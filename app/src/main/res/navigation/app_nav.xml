@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_nav"
+    app:startDestination="@id/getQrFragment">
+
+    <fragment
+        android:id="@+id/getQrFragment"
+        android:name="com.yildirimomer.tokenqr.ui.getqr.GetQrFragment"
+        android:label="get_qr_fragment"
+        tools:layout="@layout/get_qr_fragment" />
+</navigation>
