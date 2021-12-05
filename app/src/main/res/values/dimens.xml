@@ -4,4 +4,5 @@
     <dimen name="half_margin">8dp</dimen>
     <dimen name="quart_margin">4dp</dimen>
     <dimen name="qr_width">250dp</dimen>
+    <dimen name="progress_width">100dp</dimen>
 </resources>

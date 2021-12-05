@@ -1,23 +1,19 @@
 package com.yildirimomer.tokenqr.ui.getqr
 
-import android.graphics.Bitmap
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.google.zxing.BarcodeFormat
-import com.google.zxing.EncodeHintType
-import com.google.zxing.qrcode.QRCodeWriter
+import androidx.navigation.findNavController
 import com.yildirimomer.tokenqr.R
 import com.yildirimomer.tokenqr.core.BaseFragment
 import com.yildirimomer.tokenqr.core.NetworkResult
 import com.yildirimomer.tokenqr.databinding.GetQrFragmentBinding
-import com.yildirimomer.tokenqr.model.GetQrRequest
+import com.yildirimomer.tokenqr.util.getQrCodeImage
+import com.yildirimomer.tokenqr.util.hasInternetConnection
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
-import java.lang.Exception
 
 /**
  * Created by OMER YILDIRIM on 12/4/21.
@@ -40,11 +36,19 @@ class GetQrFragment : BaseFragment(R.layout.get_qr_fragment) {
         super.onCreate(savedInstanceState)
         setUI()
         observeData()
-        viewModel.getQrApiData(GetQrRequest(totalReceiptAmount = 100))
+        checkArgs()
     }
 
     override fun setUI() {
         binding = GetQrFragmentBinding.inflate(layoutInflater)
+        binding.btnProceed.setOnClickListener {
+            viewModel.getQrResponseaLiveData.value?.data?.let { qrData ->
+                qrData.amount = viewModel.paymentAmount
+                val directions =
+                    GetQrFragmentDirections.actionGetQrFragmentToPaymentFragment(qrData = qrData)
+                binding.root.findNavController().navigate(directions)
+            }
+        }
     }
 
     override fun observeData() {
@@ -53,8 +57,9 @@ class GetQrFragment : BaseFragment(R.layout.get_qr_fragment) {
                 is NetworkResult.Success -> {
                     binding.progressBar.visibility = View.GONE
                     response.data?.QRdata?.let { qrData ->
-                        val qrImage = getQrCodeBitmap(qrData)
-                        binding.ivQr.setImageBitmap(qrImage)
+                        showToastMessage(getString(R.string.qr_code_created_successfully))
+                        binding.ivQr.setImageBitmap(qrData.getQrCodeImage())
+                        binding.btnProceed.visibility = View.VISIBLE
                     }
                 }
                 is NetworkResult.Error -> {
@@ -76,21 +81,13 @@ class GetQrFragment : BaseFragment(R.layout.get_qr_fragment) {
 
     override fun provideViewModel() = viewModel
 
-    fun getQrCodeBitmap(content: String): Bitmap? {
-        try {
-            val writer = QRCodeWriter()
-            val bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 512, 512)
-            val width = bitMatrix.width
-            val height = bitMatrix.height
-            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-            for (x in 0 until width) {
-                for (y in 0 until height) {
-                    bitmap.setPixel(x, y, if (bitMatrix.get(x, y)) Color.BLACK else Color.WHITE)
-                }
-            }
-            return bitmap
-        }catch (e: Exception){
-            return null
+    private fun checkArgs() {
+        val bundle = arguments ?: return
+        viewModel.paymentAmount = GetQrFragmentArgs.fromBundle(bundle).paymentAmount
+        if (this.hasInternetConnection()) {
+            viewModel.getQrApiData()
+        } else {
+            showToastMessage(getString(R.string.please_check_your_internet_connection))
         }
     }
 }

@@ -2,6 +2,7 @@ package com.yildirimomer.tokenqr.di
 
 import com.yildirimomer.tokenqr.core.Constants
 import com.yildirimomer.tokenqr.data.Repository
+import com.yildirimomer.tokenqr.data.local.dao.PaymentDao
 import com.yildirimomer.tokenqr.data.remote.ApiService
 import com.yildirimomer.tokenqr.data.remote.RemoteDataSource
 import dagger.Module
@@ -59,7 +60,8 @@ object ApiModule {
 
     @Singleton
     @Provides
-    fun providesRepository(remoteDataSource: RemoteDataSource) = Repository(remoteDataSource)
+    fun providesRepository(remoteDataSource: RemoteDataSource, localDataSource: PaymentDao) =
+        Repository(remoteDataSource, localDataSource)
 
     fun getUnsafeOkHttpClient(): OkHttpClient.Builder? {
         return try {

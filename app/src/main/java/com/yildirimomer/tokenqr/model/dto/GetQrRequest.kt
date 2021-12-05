@@ -1,4 +1,4 @@
-package com.yildirimomer.tokenqr.model
+package com.yildirimomer.tokenqr.model.dto
 
 /**
  * Created by OMER YILDIRIM on 12/4/21.

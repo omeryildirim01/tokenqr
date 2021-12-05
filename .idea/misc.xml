@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_edittext_icon.xml" value="0.12962962962962962" />
+        <entry key="app/src/main/res/drawable/ic_baseline_create_24.xml" value="0.12962962962962962" />
+        <entry key="app/src/main/res/drawable/ic_baseline_money_24.xml" value="0.11388888888888889" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12395833333333334" />
         <entry key="app/src/main/res/layout/get_qr_fragment.xml" value="0.10989583333333333" />
         <entry key="app/src/main/res/layout/payment_fragment.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/payment_list_fragment.xml" value="0.15081521739130435" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11388888888888889" />
       </map>
     </option>
   </component>
