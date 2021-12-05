@@ -25,5 +25,5 @@ data class PaymentRecord(
     @ColumnInfo(name = "payment_amount")
     val paymentAmount: Int?,
     @ColumnInfo(name = "created_date", defaultValue = "CURRENT_TIMESTAMP")
-    val createdAt: Long? = System.currentTimeMillis()
+    val createdAt: Long?
 )
