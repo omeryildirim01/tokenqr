@@ -84,18 +84,18 @@ fun PaymentResponse.getPaymentRecord(paymentAmount: Int?) : PaymentRecord {
         returnDesc = this.returnDesc,
         sessionID = this.sessionID,
         paymentAmount = paymentAmount,
-        createdAt = null
+        createdAt = System.currentTimeMillis()
     )
 }
 
 class Converters {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+        return if (value == null) null else Date(value)
     }
 
     @TypeConverter
     fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+        return date?.time
     }
 }

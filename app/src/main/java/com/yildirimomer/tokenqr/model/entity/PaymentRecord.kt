@@ -3,7 +3,6 @@ package com.yildirimomer.tokenqr.model.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
 
 /**
  * Created by OMER YILDIRIM on 12/5/21.
@@ -26,5 +25,5 @@ data class PaymentRecord(
     @ColumnInfo(name = "payment_amount")
     val paymentAmount: Int?,
     @ColumnInfo(name = "created_date", defaultValue = "CURRENT_TIMESTAMP")
-    val createdAt: Date?
+    val createdAt: Long? = System.currentTimeMillis()
 )

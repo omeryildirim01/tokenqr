@@ -59,9 +59,10 @@ class PaymentFragment : BaseFragment(R.layout.payment_fragment) {
                     response.data?.let { paymentResponse ->
                         binding.ivStatus.setImageResource(R.drawable.ic_baseline_done_outline_24)
                         binding.txtDetails1.text = "Result:  Payment process finished successfully."
-                        binding.txtDetails2.text = "POS ID:  ${paymentResponse.posID}"
+                        binding.txtDetails2.text =
+                            "POS ID:  ${paymentResponse.posID} - Return Code: ${paymentResponse.returnCode} "
                         binding.txtDetails3.text =
-                            "Application ID:  ${paymentResponse.applicationID}"
+                            "Application ID:  ${paymentResponse.applicationID} - Return Description: ${paymentResponse.returnDesc}"
                         binding.txtDetails4.text = "Session ID:  ${paymentResponse.sessionID}"
                         viewModel.savePayment(paymentResponse = paymentResponse)
                     }

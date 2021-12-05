@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/get_qr_fragment.xml" value="0.10989583333333333" />
         <entry key="app/src/main/res/layout/payment_fragment.xml" value="0.15081521739130435" />
         <entry key="app/src/main/res/layout/payment_list_fragment.xml" value="0.15081521739130435" />
+        <entry key="app/src/main/res/layout/payment_list_item.xml" value="0.13072916666666667" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.11388888888888889" />
       </map>
     </option>
